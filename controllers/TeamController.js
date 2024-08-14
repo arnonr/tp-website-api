@@ -193,7 +193,7 @@ const methods = {
                     email: req.body.email,
                     level: level,
                     team_file: pathFile,
-                    is_active: Number(req.body.is_active),
+                    is_active: 1,
                     is_publish: Number(req.body.is_publish),
                     created_by: "arnonr",
                     updated_by: "arnonr",
@@ -245,7 +245,7 @@ const methods = {
                             : undefined,
                     phone: req.body.phone != null ? req.body.phone : undefined,
                     email: req.body.email != null ? req.body.email : undefined,
-                    level: req.body.level != null ? req.body.level : undefined,
+                    level: req.body.level != null ? Number(req.body.level) : undefined,
                     team_file: pathFile != null ? pathFile : undefined,
                     is_publish:
                         req.body.is_publish != null
@@ -269,7 +269,6 @@ const methods = {
                     id: Number(req.params.id),
                 },
                 data: {
-                    level: null,
                     deleted_at: new Date().toISOString(),
                 },
             });

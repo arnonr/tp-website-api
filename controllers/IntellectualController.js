@@ -53,8 +53,12 @@ const filterData = (req) => {
 
     if (req.query.created_intellectual) {
         $where["created_intellectual"] = {
-            gte: new Date(req.query.created_intellectual + " 00:00:00").toISOString(),
-            lte: new Date(req.query.created_intellectual + " 23:59:00").toISOString(),
+            gte: new Date(
+                req.query.created_intellectual + " 00:00:00"
+            ).toISOString(),
+            lte: new Date(
+                req.query.created_intellectual + " 23:59:00"
+            ).toISOString(),
         };
     }
 
@@ -174,7 +178,9 @@ const methods = {
                     title: req.body.title,
                     detail: cutFroala(req.body.detail),
                     is_publish: Number(req.body.is_publish),
-                    created_intellectual: new Date(req.body.created_intellectual),
+                    created_intellectual: new Date(
+                        req.body.created_intellectual
+                    ),
                     created_by: "arnonr",
                     updated_by: "arnonr",
                 },
@@ -223,7 +229,7 @@ const methods = {
                 },
             });
 
-            res.status(200).json(item);
+            res.status(200).json({ msg: "success" });
         } catch (error) {
             res.status(400).json({ msg: error.message });
         }
