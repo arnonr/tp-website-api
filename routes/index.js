@@ -33,7 +33,7 @@ const department_team = require("./api/department-team");
 const router = express.Router();
 
 router.use(
-    `/tp-website-api/api/v${process.env.API_VERSION}`,
+    `/api/v${process.env.API_VERSION}`,
     router.use("/user", user),
     router.use("/profile", profile),
     router.use("/news", news),
