@@ -1,0 +1,393 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model news_type {
+    id         Int       @id @default(autoincrement())
+    name_th    String    @db.VarChar(500)
+    name_en    String?   @db.VarChar(500)
+    is_active  Int       @default(1)
+    is_publish Int       @default(1)
+    created_at DateTime? @default(now()) @db.DateTime(0)
+    created_by String?   @db.VarChar(255)
+    updated_at DateTime? @updatedAt
+    updated_by String?   @db.VarChar(255)
+    deleted_at DateTime?
+    news       news[]
+}
+
+model news {
+    id                 Int                        @id @default(autoincrement())
+    news_type_id       Int
+    department_id      Int
+    title_th           String                     @db.VarChar(500)
+    title_en           String?                    @db.VarChar(500)
+    detail_th          String?                    @db.LongText
+    detail_en          String?                    @db.LongText
+    news_file          String?                    @db.VarChar(500)
+    is_active          Int                        @default(1)
+    is_publish         Int                        @default(1)
+    count_views        Int                        @default(0)
+    created_news       DateTime                   @db.Date
+    created_at         DateTime?                  @default(now()) @db.DateTime(0)
+    created_by         String?                    @db.VarChar(255)
+    updated_at         DateTime?                  @updatedAt
+    updated_by         String?                    @db.VarChar(255)
+    deleted_at         DateTime?
+    news_type          news_type                  @relation(fields: [news_type_id], references: [id])
+    department         department                 @relation(fields: [department_id], references: [id])
+    service_categories service_category_on_news[]
+}
+
+model annouce {
+    id              Int       @id @default(autoincrement())
+    title           String    @db.VarChar(500)
+    annouce_file    String    @db.VarChar(500)
+    is_active       Int       @default(1)
+    is_publish      Int       @default(1)
+    count_views     Int       @default(0)
+    created_annouce DateTime  @db.Date
+    created_at      DateTime? @default(now()) @db.DateTime(0)
+    created_by      String    @db.VarChar(255)
+    updated_at      DateTime? @updatedAt
+    updated_by      String    @db.VarChar(255)
+    deleted_at      DateTime?
+}
+
+model video {
+    id            Int       @id @default(autoincrement())
+    title         String    @db.VarChar(500)
+    video_url     String    @db.VarChar(500)
+    video_file    String    @db.VarChar(500)
+    is_active     Int       @default(1)
+    is_publish    Int       @default(1)
+    count_views   Int       @default(0)
+    created_video DateTime  @db.Date
+    created_at    DateTime? @default(now()) @db.DateTime(0)
+    created_by    String    @db.VarChar(255)
+    updated_at    DateTime? @updatedAt
+    updated_by    String    @db.VarChar(255)
+    deleted_at    DateTime?
+}
+
+model banner {
+    id             Int       @id @default(autoincrement())
+    title_th       String    @db.VarChar(500)
+    title_en       String?   @db.VarChar(500)
+    banner_file    String?   @db.VarChar(500)
+    banner_url     String?   @db.VarChar(500)
+    is_active      Int       @default(1)
+    is_publish     Int       @default(1)
+    count_views    Int       @default(0)
+    created_banner DateTime  @db.Date
+    created_at     DateTime? @default(now()) @db.DateTime(0)
+    created_by     String?   @db.VarChar(255)
+    updated_at     DateTime? @updatedAt
+    updated_by     String?   @db.VarChar(255)
+    deleted_at     DateTime?
+}
+
+model about {
+    id            Int       @id @default(autoincrement())
+    title         String    @db.VarChar(500)
+    detail        String?   @db.LongText
+    is_active     Int       @default(1)
+    is_publish    Int       @default(1)
+    count_views   Int       @default(0)
+    created_about DateTime  @db.Date
+    created_at    DateTime? @default(now()) @db.DateTime(0)
+    created_by    String?   @db.VarChar(255)
+    updated_at    DateTime? @updatedAt
+    updated_by    String?   @db.VarChar(255)
+    deleted_at    DateTime?
+}
+
+model cwie {
+    id           Int       @id @default(autoincrement())
+    title        String    @db.VarChar(500)
+    detail       String?   @db.LongText
+    is_active    Int       @default(1)
+    is_publish   Int       @default(1)
+    count_views  Int       @default(0)
+    created_cwie DateTime  @db.Date
+    created_at   DateTime? @default(now()) @db.DateTime(0)
+    created_by   String?   @db.VarChar(255)
+    updated_at   DateTime? @updatedAt
+    updated_by   String?   @db.VarChar(255)
+    deleted_at   DateTime?
+}
+
+model course {
+    id             Int       @id @default(autoincrement())
+    title          String    @db.VarChar(500)
+    detail         String?   @db.LongText
+    is_active      Int       @default(1)
+    is_publish     Int       @default(1)
+    count_views    Int       @default(0)
+    created_course DateTime  @db.Date
+    created_at     DateTime? @default(now()) @db.DateTime(0)
+    created_by     String?   @db.VarChar(255)
+    updated_at     DateTime? @updatedAt
+    updated_by     String?   @db.VarChar(255)
+    deleted_at     DateTime?
+}
+
+model article {
+    id              Int       @id @default(autoincrement())
+    title           String    @db.VarChar(500)
+    detail          String?   @db.LongText
+    is_active       Int       @default(1)
+    is_publish      Int       @default(1)
+    count_views     Int       @default(0)
+    created_article DateTime  @db.Date
+    created_at      DateTime? @default(now()) @db.DateTime(0)
+    created_by      String?   @db.VarChar(255)
+    updated_at      DateTime? @updatedAt
+    updated_by      String?   @db.VarChar(255)
+    deleted_at      DateTime?
+}
+
+model intellectual {
+    id                   Int       @id @default(autoincrement())
+    title                String    @db.VarChar(500)
+    detail               String?   @db.LongText
+    is_active            Int       @default(1)
+    is_publish           Int       @default(1)
+    count_views          Int       @default(0)
+    created_intellectual DateTime  @db.Date
+    created_at           DateTime? @default(now()) @db.DateTime(0)
+    created_by           String?   @db.VarChar(255)
+    updated_at           DateTime? @updatedAt
+    updated_by           String?   @db.VarChar(255)
+    deleted_at           DateTime?
+}
+
+model contact {
+    id              Int       @id @default(autoincrement())
+    title_th        String    @db.VarChar(500)
+    title_en        String?   @db.VarChar(500)
+    detail_th       String?   @db.LongText
+    detail_en       String?   @db.LongText
+    is_active       Int       @default(1)
+    is_publish      Int       @default(1)
+    count_views     Int       @default(0)
+    created_contact DateTime  @db.Date
+    created_at      DateTime? @default(now()) @db.DateTime(0)
+    created_by      String?   @db.VarChar(255)
+    updated_at      DateTime? @updatedAt
+    updated_by      String?   @db.VarChar(255)
+    deleted_at      DateTime?
+}
+
+model department {
+    id                 Int                              @id @default(autoincrement())
+    uuid               String                           @unique @db.VarChar(100)
+    name_th            String                           @db.VarChar(500)
+    name_en            String?                          @db.VarChar(500)
+    detail_th          String?                          @db.LongText
+    detail_en          String?                          @db.LongText
+    contact_th         String?                          @db.LongText
+    contact_en         String?                          @db.LongText
+    department_file    String?                          @db.VarChar(500)
+    level              Int
+    is_active          Int                              @default(1)
+    is_publish         Int                              @default(1)
+    created_at         DateTime?                        @default(now()) @db.DateTime(0)
+    created_by         String?                          @db.VarChar(255)
+    updated_at         DateTime?                        @updatedAt
+    updated_by         String?                          @db.VarChar(255)
+    deleted_at         DateTime?
+    news               news[]
+    service_categories service_category_on_department[]
+    serve              serve[]
+    user               user[]
+}
+
+model team {
+    id                 Int             @id @default(autoincrement())
+    prefix             String          @db.VarChar(500)
+    firstname          String          @db.VarChar(500)
+    surname            String          @db.VarChar(500)
+    position           String          @db.VarChar(500)
+    position_level     String          @db.VarChar(500)
+    phone              String          @db.VarChar(50)
+    email              String          @db.VarChar(255)
+    level              Int
+    team_file          String          @db.VarChar(500)
+    is_active          Int             @default(1)
+    is_publish         Int             @default(1)
+    created_at         DateTime?       @default(now()) @db.DateTime(0)
+    created_by         String          @db.VarChar(255)
+    updated_at         DateTime?       @updatedAt
+    updated_by         String          @db.VarChar(255)
+    deleted_at         DateTime?
+    department_team    department_team @relation(fields: [department_team_id], references: [id])
+    department_team_id Int
+}
+
+model department_team {
+    id         Int       @id @default(autoincrement())
+    uuid       String    @unique @db.VarChar(100)
+    name       String    @db.VarChar(500)
+    detail     String?   @db.LongText
+    level      Int
+    is_active  Int       @default(1)
+    is_publish Int       @default(1)
+    created_at DateTime? @default(now()) @db.DateTime(0)
+    created_by String?   @db.VarChar(255)
+    updated_at DateTime? @updatedAt
+    updated_by String?   @db.VarChar(255)
+    deleted_at DateTime?
+    team       team[]
+}
+
+model news_gallery {
+    id                Int       @id @default(autoincrement())
+    news_id           Int?
+    secret_key        String    @db.VarChar(255)
+    news_gallery_file String    @db.VarChar(500)
+    is_active         Int       @default(1)
+    is_publish        Int       @default(1)
+    created_at        DateTime? @default(now()) @db.DateTime(0)
+    created_by        String    @db.VarChar(255)
+    updated_at        DateTime? @updatedAt
+    updated_by        String?   @db.VarChar(255)
+    deleted_at        DateTime?
+}
+
+model group {
+    id         Int       @id @default(autoincrement())
+    title_th   String    @db.VarChar(500)
+    title_en   String?   @db.VarChar(500)
+    is_active  Int       @default(1)
+    is_publish Int       @default(1)
+    created_at DateTime? @default(now()) @db.DateTime(0)
+    created_by String?   @db.VarChar(255)
+    updated_at DateTime? @updatedAt
+    updated_by String?   @db.VarChar(255)
+    deleted_at DateTime?
+    users      user[]
+}
+
+model user {
+    id                   Int        @id @default(autoincrement())
+    group_id             Int
+    email                String     @db.VarChar(500)
+    username             String     @unique @db.VarChar(500)
+    name                 String     @unique @db.VarChar(500)
+    department_id        Int
+    password             String?    @db.VarChar(500)
+    status               Int        @default(1)
+    is_active            Int        @default(1)
+    is_publish           Int        @default(1)
+    created_at           DateTime?  @default(now()) @db.DateTime(0)
+    created_by           String?    @db.VarChar(255)
+    updated_at           DateTime?  @updatedAt
+    updated_by           String?    @db.VarChar(255)
+    deleted_at           DateTime?
+    secret_confirm_email String?    @db.VarChar(500)
+    profile              profile?
+    group                group      @relation(fields: [group_id], references: [id])
+    department           department @relation(fields: [department_id], references: [id])
+
+    @@index([group_id], map: "user_group_id_fkey")
+}
+
+model profile {
+    id              Int       @id @default(autoincrement())
+    user_id         Int       @unique
+    prefix          String?   @db.VarChar(500)
+    firstname       String?   @db.VarChar(500)
+    surname         String?   @db.VarChar(500)
+    is_active       Int       @default(1)
+    is_publish      Int       @default(1)
+    created_at      DateTime? @default(now()) @db.DateTime(0)
+    created_by      String?   @db.VarChar(255)
+    updated_at      DateTime? @updatedAt
+    updated_by      String?   @db.VarChar(255)
+    deleted_at      DateTime?
+    contact_address String?   @db.LongText
+    email           String?   @db.VarChar(500)
+    invoice_address String?   @db.LongText
+    member_status   Int
+    organization    String?   @db.VarChar(500)
+    phone           String?   @db.VarChar(500)
+    tax_id          String?   @db.VarChar(500)
+    invoice_name    String?   @db.VarChar(500)
+    district_code   Int?
+    phone2          String?   @db.VarChar(500)
+    user            user      @relation(fields: [user_id], references: [id])
+}
+
+model service_category {
+    id          Int                              @id @default(autoincrement())
+    name_th     String                           @db.VarChar(500)
+    name_en     String?                          @db.VarChar(500)
+    detail_th   String?                          @db.LongText
+    detail_en   String?                          @db.LongText
+    is_active   Int                              @default(1)
+    is_publish  Int                              @default(1)
+    created_at  DateTime?                        @default(now()) @db.DateTime(0)
+    created_by  String?                          @db.VarChar(255)
+    updated_at  DateTime?                        @updatedAt
+    updated_by  String?                          @db.VarChar(255)
+    deleted_at  DateTime?
+    departments service_category_on_department[]
+    news        service_category_on_news[]
+    serve       serve[]
+}
+
+model service_category_on_department {
+    department          department       @relation(fields: [department_id], references: [id])
+    department_id       Int // relation scalar field (used in the `@relation` attribute above)
+    service_category    service_category @relation(fields: [service_category_id], references: [id])
+    service_category_id Int // relation scalar field (used in the `@relation` attribute above)
+    assignedAt          DateTime         @default(now())
+    assignedBy          String
+
+    @@id([department_id, service_category_id])
+}
+
+model service_category_on_news {
+    news                news             @relation(fields: [news_id], references: [id])
+    news_id             Int // relation scalar field (used in the `@relation` attribute above)
+    service_category    service_category @relation(fields: [service_category_id], references: [id])
+    service_category_id Int // relation scalar field (used in the `@relation` attribute above)
+    assignedAt          DateTime         @default(now())
+    assignedBy          String
+
+    @@id([news_id, service_category_id])
+}
+
+model serve {
+    id                  Int              @id @default(autoincrement())
+    department          department       @relation(fields: [department_id], references: [id])
+    department_id       Int
+    service_category    service_category @relation(fields: [service_category_id], references: [id])
+    service_category_id Int
+    title_th            String           @db.VarChar(500)
+    title_en            String?          @db.VarChar(500)
+    serve_file          String?          @db.VarChar(500)
+    detail_th           String?          @db.LongText
+    detail_en           String?          @db.LongText
+    rates_th            String?          @db.LongText
+    rates_en            String?          @db.LongText
+    location_th         String?          @db.LongText
+    location_en         String?          @db.LongText
+    contact_th          String?          @db.LongText
+    contact_en          String?          @db.LongText
+    is_active           Int              @default(1)
+    is_publish          Int              @default(1)
+    count_views         Int              @default(0)
+    created_serve       DateTime         @db.Date
+    created_at          DateTime?        @default(now()) @db.DateTime(0)
+    created_by          String?          @db.VarChar(255)
+    updated_at          DateTime?        @updatedAt
+    updated_by          String?          @db.VarChar(255)
+    deleted_at          DateTime?
+}
