@@ -33,8 +33,12 @@ const methods = {
                 `../public/uploads${real_path}${nameFile}`
             );
             // documents
-            if(!real_path.includes('/documents/')) {
+            if (!real_path.includes("/documents/")) {
                 await sharp(uploadFile.data).resize(w, h).toFile(pathUpload);
+            } else {
+                uploadFile.mv(pathUpload, function (err) {
+                    if (err) return err;
+                });
             }
 
             pathFile = `${real_path}${nameFile}`;
