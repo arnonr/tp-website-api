@@ -32,8 +32,10 @@ const methods = {
                 __dirname,
                 `../public/uploads${real_path}${nameFile}`
             );
-
-            await sharp(uploadFile.data).resize(w, h).toFile(pathUpload);
+            // documents
+            if(real_path.includes('/documents/')) {
+                await sharp(uploadFile.data).resize(w, h).toFile(pathUpload);
+            }
 
             pathFile = `${real_path}${nameFile}`;
 
