@@ -37,7 +37,8 @@ const methods = {
                 await sharp(uploadFile.data).resize(w, h).toFile(pathUpload);
             } else {
                 uploadFile.mv(pathUpload, function (err) {
-                    if (err) return err;
+                    if (err)
+                        throw new Error("File upload failed: " + err.message);
                 });
             }
 
