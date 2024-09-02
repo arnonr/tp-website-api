@@ -25,9 +25,13 @@ const methods = {
             }
 
             let typeFile = uploadFile.mimetype.split("/");
+            let fileExtension = uploadFile.name.split(".").pop().toLowerCase();
+
             let d = new Date();
             let date = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-            let nameFile = `${date}-t-${Date.now()}.${typeFile[1]}`;
+            fileExtension;
+            let nameFile = `${date}-t-${Date.now()}.${fileExtension}`;
+            // let nameFile = `${date}-t-${Date.now()}.${typeFile[1]}`;
             let pathUpload = path.resolve(
                 __dirname,
                 `../public/uploads${real_path}${nameFile}`
