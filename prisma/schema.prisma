@@ -215,6 +215,7 @@ model team {
     surname            String          @db.VarChar(500)
     position           String          @db.VarChar(500)
     position_level     String          @db.VarChar(500)
+    sub_department     String?         @db.Text
     phone              String          @db.VarChar(50)
     email              String          @db.VarChar(255)
     level              Int

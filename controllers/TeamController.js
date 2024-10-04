@@ -104,6 +104,7 @@ const selectField = {
     email: true,
     level: true,
     department_team_id: true,
+    sub_department: true,
     team_file: true,
     is_publish: true,
     department_team: {
@@ -193,6 +194,7 @@ const methods = {
                     email: req.body.email,
                     level: level,
                     team_file: pathFile,
+                    sub_department: req.body.sub_department,
                     is_active: 1,
                     is_publish: Number(req.body.is_publish),
                     created_by: "arnonr",
@@ -245,7 +247,15 @@ const methods = {
                             : undefined,
                     phone: req.body.phone != null ? req.body.phone : undefined,
                     email: req.body.email != null ? req.body.email : undefined,
-                    level: req.body.level != null ? Number(req.body.level) : undefined,
+
+                    sub_department:
+                        req.body.sub_department != null
+                            ? req.body.sub_department
+                            : undefined,
+                    level:
+                        req.body.level != null
+                            ? Number(req.body.level)
+                            : undefined,
                     team_file: pathFile != null ? pathFile : undefined,
                     is_publish:
                         req.body.is_publish != null
