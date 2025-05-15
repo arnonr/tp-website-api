@@ -19,6 +19,13 @@ const filterData = (req) => {
         };
     }
 
+    if (req.query.title_en) {
+        $where["title_en"] = {
+            contains: req.query.title_en,
+            //   mode: "insensitive",
+        };
+    }
+
     if (req.query.is_publish) {
         $where["is_publish"] = parseInt(req.query.is_publish);
     }
@@ -53,8 +60,12 @@ const filterData = (req) => {
 
     if (req.query.created_article) {
         $where["created_article"] = {
-            gte: new Date(req.query.created_article + " 00:00:00").toISOString(),
-            lte: new Date(req.query.created_article + " 23:59:00").toISOString(),
+            gte: new Date(
+                req.query.created_article + " 00:00:00"
+            ).toISOString(),
+            lte: new Date(
+                req.query.created_article + " 23:59:00"
+            ).toISOString(),
         };
     }
 
@@ -100,6 +111,8 @@ const selectField = {
     id: true,
     title: true,
     detail: true,
+    title_en: true,
+    detail_en: true,
     is_publish: true,
     count_views: true,
     created_article: true,
@@ -173,6 +186,8 @@ const methods = {
                 data: {
                     title: req.body.title,
                     detail: cutFroala(req.body.detail),
+                    title_en: req.body.title_en,
+                    detail_en: cutFroala(req.body.detail_en),
                     is_publish: Number(req.body.is_publish),
                     created_article: new Date(req.body.created_article),
                     created_by: "arnonr",
@@ -195,6 +210,11 @@ const methods = {
                 data: {
                     title: req.body.title != null ? req.body.title : undefined,
                     detail: cutFroala(req.body.detail),
+                    title_en:
+                        req.body.title_en != null
+                            ? req.body.title_en
+                            : undefined,
+                    detail_en: cutFroala(req.body.detail_en),
                     is_publish:
                         req.body.is_publish != null
                             ? Number(req.body.is_publish)

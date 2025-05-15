@@ -95,7 +95,9 @@ model banner {
 model about {
     id            Int       @id @default(autoincrement())
     title         String    @db.VarChar(500)
+    title_en      String?   @db.VarChar(500)
     detail        String?   @db.LongText
+    detail_en     String?   @db.LongText
     is_active     Int       @default(1)
     is_publish    Int       @default(1)
     count_views   Int       @default(0)
@@ -111,6 +113,8 @@ model cwie {
     id           Int       @id @default(autoincrement())
     title        String    @db.VarChar(500)
     detail       String?   @db.LongText
+    title_en     String?   @db.VarChar(500)
+    detail_en    String?   @db.LongText
     is_active    Int       @default(1)
     is_publish   Int       @default(1)
     count_views  Int       @default(0)
@@ -126,6 +130,8 @@ model course {
     id             Int       @id @default(autoincrement())
     title          String    @db.VarChar(500)
     detail         String?   @db.LongText
+    title_en       String?   @db.VarChar(500)
+    detail_en      String?   @db.LongText
     is_active      Int       @default(1)
     is_publish     Int       @default(1)
     count_views    Int       @default(0)
@@ -141,6 +147,8 @@ model article {
     id              Int       @id @default(autoincrement())
     title           String    @db.VarChar(500)
     detail          String?   @db.LongText
+    title_en     String?   @db.VarChar(500)
+    detail_en    String?   @db.LongText
     is_active       Int       @default(1)
     is_publish      Int       @default(1)
     count_views     Int       @default(0)
@@ -156,6 +164,8 @@ model intellectual {
     id                   Int       @id @default(autoincrement())
     title                String    @db.VarChar(500)
     detail               String?   @db.LongText
+    title_en             String?   @db.VarChar(500)
+    detail_en            String?   @db.LongText
     is_active            Int       @default(1)
     is_publish           Int       @default(1)
     count_views          Int       @default(0)
