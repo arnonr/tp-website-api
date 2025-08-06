@@ -42,6 +42,7 @@ model news {
     news_type          news_type                  @relation(fields: [news_type_id], references: [id])
     department         department                 @relation(fields: [department_id], references: [id])
     service_categories service_category_on_news[]
+    sdg_on_news        sdg_on_news[]
 }
 
 model annouce {
@@ -147,8 +148,8 @@ model article {
     id              Int       @id @default(autoincrement())
     title           String    @db.VarChar(500)
     detail          String?   @db.LongText
-    title_en     String?   @db.VarChar(500)
-    detail_en    String?   @db.LongText
+    title_en        String?   @db.VarChar(500)
+    detail_en       String?   @db.LongText
     is_active       Int       @default(1)
     is_publish      Int       @default(1)
     count_views     Int       @default(0)
@@ -401,4 +402,34 @@ model serve {
     updated_at          DateTime?        @updatedAt
     updated_by          String?          @db.VarChar(255)
     deleted_at          DateTime?
+}
+
+model sdg {
+    id          Int           @id @default(autoincrement())
+    title_th    String        @db.VarChar(500)
+    title_en    String?       @db.VarChar(500)
+    sdg_file    String?       @db.VarChar(500)
+    detail_th   String?       @db.LongText
+    detail_en   String?       @db.LongText
+    color       String?       @db.VarChar(500)
+    is_active   Int           @default(1)
+    is_publish  Int           @default(1)
+    created_sdg DateTime      @db.Date
+    created_at  DateTime?     @default(now()) @db.DateTime(0)
+    created_by  String?       @db.VarChar(255)
+    updated_at  DateTime?     @updatedAt
+    updated_by  String?       @db.VarChar(255)
+    deleted_at  DateTime?
+    sdg_on_news sdg_on_news[]
+}
+
+model sdg_on_news {
+    news       news     @relation(fields: [news_id], references: [id])
+    news_id    Int // relation scalar field (used in the `@relation` attribute above)
+    sdg        sdg      @relation(fields: [sdg_id], references: [id])
+    sdg_id     Int // relation scalar field (used in the `@relation` attribute above)
+    assignedAt DateTime @default(now())
+    assignedBy String
+
+    @@id([news_id, sdg_id])
 }

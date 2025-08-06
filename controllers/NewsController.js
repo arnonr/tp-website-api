@@ -110,6 +110,14 @@ const filterData = (req) => {
         $where["department_id"] = parseInt(req.query.department_id);
     }
 
+    if (req.query.sdg_id) {
+        $where["sdg_on_news"] = {
+            some: {
+                sdg_id: parseInt(req.query.sdg_id),
+            },
+        };
+    }
+
     if (req.query.is_publish) {
         $where["is_publish"] = parseInt(req.query.is_publish);
     }
@@ -220,6 +228,17 @@ const selectField = {
                 select: {
                     id: true,
                     name_th: true,
+                },
+            },
+        },
+    },
+    sdg_on_news: {
+        select: {
+            sdg: {
+                select: {
+                    id: true,
+                    title_th: true,
+                    color: true,
                 },
             },
         },
@@ -359,6 +378,23 @@ const methods = {
                 });
             }
 
+            let sdg_on_news_arr = [];
+
+            if (req.body.sdg_id) {
+                const ar = req.body.sdg_id.split(",");
+                ar.forEach((el) => {
+                    sdg_on_news_arr.push({
+                        assignedBy: "arnonr",
+                        assignedAt: new Date(),
+                        sdg: {
+                            connect: {
+                                id: Number(el),
+                            },
+                        },
+                    });
+                });
+            }
+
             const item = await prisma.news.create({
                 data: {
                     news_type_id: Number(req.body.news_type_id),
@@ -374,6 +410,9 @@ const methods = {
                     updated_by: "arnonr",
                     service_categories: {
                         create: service_category_arr,
+                    },
+                    sdg_on_news: {
+                        create: sdg_on_news_arr,
                     },
                 },
             });
@@ -432,6 +471,29 @@ const methods = {
                 });
             }
 
+            await prisma.sdg_on_news.deleteMany({
+                where: {
+                    news_id: Number(req.params.id),
+                },
+            });
+
+            let sdg_on_news_arr = [];
+
+            if (req.body.sdg_id) {
+                const ar = req.body.sdg_id.split(",");
+                ar.forEach((el) => {
+                    sdg_on_news_arr.push({
+                        assignedBy: "arnonr",
+                        assignedAt: new Date(),
+                        sdg: {
+                            connect: {
+                                id: Number(el),
+                            },
+                        },
+                    });
+                });
+            }
+
             const item = await prisma.news.update({
                 where: {
                     id: Number(req.params.id),
@@ -463,6 +525,9 @@ const methods = {
                     updated_by: "arnonr",
                     service_categories: {
                         create: service_category_arr,
+                    },
+                    sdg_on_news: {
+                        create: sdg_on_news_arr,
                     },
                 },
             });
