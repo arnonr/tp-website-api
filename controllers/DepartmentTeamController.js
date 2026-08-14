@@ -45,12 +45,12 @@ const countDataAndOrder = async (req, $where) => {
     }
 
     //Count
-    let $count = await prisma.department.findMany({
+    let $count = await prisma.department_team.findMany({
         where: $where,
     });
 
     $count = $count.length;
-    let $perPage = req.query.perPage ? Number(req.query.perPage) : 10;
+    let $perPage = req.query.perPage ? Number(req.query.perPage) : 500;
     let $currentPage = req.query.currentPage
         ? Number(req.query.currentPage)
         : 1;
